@@ -2,7 +2,7 @@ import Event from '../models/Event';
 
 export interface AddEventModel {
   title: string;
-  date: string | Date;
+  date: string;
   description: string;
   capacity: number;
   category: string;
