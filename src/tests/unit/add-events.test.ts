@@ -35,7 +35,7 @@ describe('Add Events', () => {
     });
   });
 
-  it('Deve retornar erro se data do evento for maior que data atual', async () => {
+  it('Deve retornar erro se data do evento for menor que data atual', async () => {
     const data = {
       title: 'Evento de programação',
       date: '24-04-2024',
@@ -51,7 +51,7 @@ describe('Add Events', () => {
       assert.deepEqual(error.status, 400);
       assert.deepEqual(
         error.message,
-        'Invalid param Data do evento deve ser menor que data atual',
+        'Invalid param Data do evento deve ser maior que data atual',
       );
       return true;
     });
