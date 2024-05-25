@@ -10,5 +10,5 @@ export interface UpdateEventModel {
 }
 
 export interface UpdateEvent {
-  add: (id: string, event: UpdateEventModel) => Promise<Event>;
+  update: (id: string, event: UpdateEventModel) => Promise<Event>;
 }
