@@ -38,6 +38,9 @@ class AddEventsService implements AddEvent {
         400,
       );
 
+    if (data.capacity < 1)
+      throw new InvalidParamError('Capacidade deve ser maior que 1', 400);
+
     return await this.eventsRepository.add(data);
   }
 }
