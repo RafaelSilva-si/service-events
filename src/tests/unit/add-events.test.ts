@@ -20,4 +20,18 @@ describe('Add Events', () => {
     const result = await addEventsService.add(data);
     assert.deepEqual(result, { ...data, id: '1' });
   });
+
+  it('Deve retornar erro se campos obrigatórios esteierem incompletos', async () => {
+    const data: any = {
+      description: 'Um evento massa sobre programação!',
+      status: 'Ativo',
+    };
+
+    const promise = addEventsService.add(data);
+    await assert.rejects(promise, (error: any) => {
+      assert.deepEqual(error.status, 401);
+      assert.deepEqual(error.message, 'Missing param title');
+      return true;
+    });
+  });
 });
