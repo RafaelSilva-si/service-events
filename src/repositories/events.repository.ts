@@ -9,6 +9,7 @@ class EventsRepository
   implements AddEvent, UpdateEvent, GetEventByID, RemoveEvent, GetAllEvents
 {
   async getAll(params: any): Promise<Event[]> {
+    console.log(params);
     return [
       {
         id: '1',
