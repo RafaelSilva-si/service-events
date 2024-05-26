@@ -26,6 +26,9 @@ class UpdateEventService implements UpdateEvent {
         400,
       );
 
+    if (data.capacity < 1)
+      throw new InvalidParamError('Capacidade deve ser maior que 1', 400);
+
     return await this.eventRepository.update(id, data);
   }
 }
