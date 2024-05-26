@@ -45,4 +45,26 @@ describe('Update Event', () => {
       return true;
     });
   });
+
+  it('Deve retornar erro se data do evento for menor que data atual.', async () => {
+    const data = {
+      title: 'Evento de programação',
+      date: '24-04-2024',
+      location: 'Expo SP',
+      capacity: 100,
+      description: 'Um evento massa sobre programação!',
+      category: 'Tecnologia',
+      status: 'Ativo',
+    };
+
+    const promise = updateEvent.update('1', data);
+    await assert.rejects(promise, (error: any) => {
+      assert.deepEqual(error.status, 400);
+      assert.deepEqual(
+        error.message,
+        'Invalid param Data do evento deve ser maior que data atual',
+      );
+      return true;
+    });
+  });
 });
