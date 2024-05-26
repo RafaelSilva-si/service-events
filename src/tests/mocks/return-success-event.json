@@ -1,0 +1,9 @@
+{
+    "id": "1",
+    "title": "Teste",
+    "capacity": 2,
+    "description": "Evento Maneiro",
+    "category": "Tecnologia",
+    "date": "25-05-2024",
+    "status": "ativo"
+}
