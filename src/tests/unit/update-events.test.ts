@@ -67,4 +67,26 @@ describe('Update Event', () => {
       return true;
     });
   });
+
+  it('Deve retornar erro se capacidade for menor ou igual a 0', async () => {
+    const data = {
+      title: 'Evento de programação',
+      date: '24-09-2024',
+      location: 'Expo SP',
+      capacity: -1,
+      description: 'Um evento massa sobre programação!',
+      category: 'Tecnologia',
+      status: 'Ativo',
+    };
+
+    const promise = updateEvent.update('1', data);
+    await assert.rejects(promise, (error: any) => {
+      assert.deepEqual(error.status, 400);
+      assert.deepEqual(
+        error.message,
+        'Invalid param Capacidade deve ser maior que 1',
+      );
+      return true;
+    });
+  });
 });
