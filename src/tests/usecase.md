@@ -25,7 +25,3 @@
 ## Listar:
 
 - Deve Listar todos os eventos ativos registrados.
-
-## Finalizar:
-
-- Deve finalizar evento automaticamente se data atual for maior que data do evento.
