@@ -1,6 +1,9 @@
 import express, { Express } from 'express';
 import { Sequelize } from 'sequelize-typescript';
 import router from './routes';
+import envs from './config/global';
+import Event from './data/models/Events';
+import SequelizeInstance from './config/sequelize';
 
 class App {
   public express: Express;
@@ -10,11 +13,23 @@ class App {
     this.express = express();
     this.middlewares();
     this.setupRoutes();
+    this.database();
   }
 
   private middlewares(): void {
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
+  }
+
+  private async database(): Promise<void> {
+    this.sequelize = SequelizeInstance;
+
+    try {
+      await this.sequelize.authenticate();
+      await Event.sync({ force: false });
+    } catch (error) {
+      console.error('Unable to connect to the database:', error);
+    }
   }
 
   private setupRoutes(): void {
@@ -29,5 +44,5 @@ class App {
 }
 
 const app = new App();
-const port = 3003;
+const port = envs.PORT ? parseInt(envs.PORT, 10) : 3003;
 app.start(port);
