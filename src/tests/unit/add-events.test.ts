@@ -1,15 +1,26 @@
 import assert from 'assert';
 import AddEventsService from '../../services/add-events.service';
 import EventsRepository from '../../repositories/events.repository';
+import Sinon from 'sinon';
+
+const mocks = {
+  returnSuccess: require('../mocks/return-success-event.json'),
+};
 
 describe('Add Events', () => {
   const eventsRepository = new EventsRepository();
   const addEventsService = new AddEventsService(eventsRepository);
 
+  afterEach(() => {
+    Sinon.restore();
+  });
+
   it('Deve adicionar um Evento com os dados Titulo, Data, Local, Capacidade, Descrição, Categoria e status', async () => {
+    Sinon.stub(EventsRepository.prototype, 'add').resolves(mocks.returnSuccess);
+
     const data = {
       title: 'Evento de programação',
-      date: '24-06-2024',
+      date: '2024-06-29',
       location: 'Expo SP',
       capacity: 100,
       description: 'Um evento massa sobre programação!',
@@ -18,7 +29,7 @@ describe('Add Events', () => {
     };
 
     const result = await addEventsService.add(data);
-    assert.deepEqual(result, { ...data, id: '1' });
+    assert.strictEqual(result, mocks.returnSuccess);
   });
 
   it('Deve retornar erro se campos obrigatórios esteierem incompletos', async () => {
@@ -60,7 +71,7 @@ describe('Add Events', () => {
   it('Deve retornar erro se capacidade for menor ou igual a 0', async () => {
     const data = {
       title: 'Evento de programação',
-      date: '24-09-2024',
+      date: '2024-08-29',
       location: 'Expo SP',
       capacity: -1,
       description: 'Um evento massa sobre programação!',

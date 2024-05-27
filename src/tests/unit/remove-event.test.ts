@@ -16,6 +16,13 @@ describe('Remove Events', () => {
   });
 
   it('Deve remover um evento com base em seu ID', async () => {
+    Sinon.stub(EventsRepository.prototype, 'getEventByID')
+      .withArgs('1')
+      .resolves(mocks.returnSuccess);
+
+    Sinon.stub(EventsRepository.prototype, 'remove').resolves(
+      mocks.returnSuccess,
+    );
     const result = await removeEventService.remove('1');
     assert.deepEqual(result, mocks.returnSuccess);
   });

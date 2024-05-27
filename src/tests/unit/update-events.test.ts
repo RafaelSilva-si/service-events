@@ -3,6 +3,10 @@ import UpdateEventService from '../../services/update-event.service';
 import EventsRepository from '../../repositories/events.repository';
 import Sinon from 'sinon';
 
+const mocks = {
+  returnSuccess: require('../mocks/return-success-event.json'),
+};
+
 describe('Update Event', () => {
   const eventRepository = new EventsRepository();
   const updateEvent = new UpdateEventService(eventRepository);
@@ -12,9 +16,17 @@ describe('Update Event', () => {
   });
 
   it('Deve atualizar todas informações do evento verificando pelo ID.', async () => {
+    Sinon.stub(EventsRepository.prototype, 'getEventByID')
+      .withArgs('1')
+      .resolves(mocks.returnSuccess);
+
+    Sinon.stub(EventsRepository.prototype, 'update').resolves(
+      mocks.returnSuccess,
+    );
+
     const data = {
       title: 'Evento de programação',
-      date: '24-06-2024',
+      date: '2024-06-24',
       location: 'Expo SP',
       capacity: 100,
       description: 'Um evento massa sobre programação!',
@@ -23,14 +35,14 @@ describe('Update Event', () => {
     };
 
     const result = await updateEvent.update('1', data);
-    assert.deepEqual(result, { ...data, id: '1' });
+    assert.deepEqual(result, mocks.returnSuccess);
   });
 
   it('Deve retornar um erro se o evento não existir com base no ID', async () => {
     Sinon.stub(EventsRepository.prototype, 'getEventByID').resolves(false);
     const data = {
       title: 'Evento de programação',
-      date: '24-06-2024',
+      date: '2024-06-24',
       location: 'Expo SP',
       capacity: 100,
       description: 'Um evento massa sobre programação!',
@@ -47,9 +59,13 @@ describe('Update Event', () => {
   });
 
   it('Deve retornar erro se data do evento for menor que data atual.', async () => {
+    Sinon.stub(EventsRepository.prototype, 'getEventByID').resolves(
+      mocks.returnSuccess,
+    );
+
     const data = {
       title: 'Evento de programação',
-      date: '24-04-2024',
+      date: '2024-01-24',
       location: 'Expo SP',
       capacity: 100,
       description: 'Um evento massa sobre programação!',
@@ -69,9 +85,13 @@ describe('Update Event', () => {
   });
 
   it('Deve retornar erro se capacidade for menor ou igual a 0', async () => {
+    Sinon.stub(EventsRepository.prototype, 'getEventByID').resolves(
+      mocks.returnSuccess,
+    );
+
     const data = {
       title: 'Evento de programação',
-      date: '24-09-2024',
+      date: '2024-06-24',
       location: 'Expo SP',
       capacity: -1,
       description: 'Um evento massa sobre programação!',
