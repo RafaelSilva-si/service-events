@@ -9,6 +9,8 @@ class Event extends Model {
   public capacity!: number;
   public category!: string;
   public status!: string;
+  public cover!: string;
+  public galerry!: any;
 }
 
 Event.init(
@@ -41,6 +43,13 @@ Event.init(
     status: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    cover: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    gallery: {
+      type: DataTypes.JSON,
     },
   },
   {
