@@ -4,55 +4,57 @@ import { GetAllEvents } from '../domain/usecases/get-all-events';
 import { GetEventByID } from '../domain/usecases/get-event-by-id';
 import { RemoveEvent } from '../domain/usecases/remove-event';
 import { UpdateEvent, UpdateEventModel } from '../domain/usecases/update-event';
+import DBError from '../utils/errors/dbError';
+import EventModel from '../data/models/Events';
 
 class EventsRepository
   implements AddEvent, UpdateEvent, GetEventByID, RemoveEvent, GetAllEvents
 {
   async getAll(params: any): Promise<Event[]> {
-    console.log(params);
-    return [
-      {
-        id: '1',
-        title: 'Teste',
-        capacity: 2,
-        description: 'Evento Maneiro',
-        category: 'Tecnologia',
-        date: '25-05-2024',
-        status: 'ativo',
-      },
-    ];
+    try {
+      return await EventModel.findAll({ where: { ...params } });
+    } catch (error) {
+      throw new DBError(error.message, 500);
+    }
   }
 
   async add(data: AddEventModel): Promise<Event> {
-    return { ...data, id: '1' };
+    try {
+      return (await EventModel.create({ ...data })).dataValues;
+    } catch (error) {
+      throw new DBError(error.message, 500);
+    }
   }
 
   async update(id: string, data: UpdateEventModel): Promise<Event> {
-    return { id, ...data };
+    try {
+      const result = await EventModel.update(data, {
+        where: { id },
+        returning: true,
+      });
+      return result[1][0].dataValues;
+    } catch (error) {
+      throw new DBError(error.message, 500);
+    }
   }
 
   async getEventByID(id: string): Promise<Event | false> {
-    return {
-      id: id,
-      title: 'Teste',
-      capacity: 2,
-      description: 'Evento Maneiro',
-      category: 'Tecnologia',
-      date: '25-05-2024',
-      status: 'ativo',
-    };
+    try {
+      return EventModel.findOne({ where: { id } });
+    } catch (error) {
+      throw new DBError(error.message, 500);
+    }
   }
 
   async remove(id: string): Promise<Event> {
-    return {
-      id: id,
-      title: 'Teste',
-      capacity: 2,
-      description: 'Evento Maneiro',
-      category: 'Tecnologia',
-      date: '25-05-2024',
-      status: 'ativo',
-    };
+    try {
+      const existItem = await EventModel.findOne({ where: { id } });
+      if (existItem) existItem.destroy();
+
+      return existItem;
+    } catch (error) {
+      throw new DBError(error.message, 500);
+    }
   }
 }
 
