@@ -22,6 +22,12 @@ describe('Add Events', () => {
       title: 'Evento de programação',
       date: '2024-06-29',
       location: 'Expo SP',
+      cover:
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+      gallery: [
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+        'https://cdn.pixabay.com/photo/2020/04/19/08/17/watercolor-5062356_1280.jpg',
+      ],
       capacity: 100,
       description: 'Um evento massa sobre programação!',
       category: 'Tecnologia',
@@ -50,6 +56,12 @@ describe('Add Events', () => {
     const data = {
       title: 'Evento de programação',
       date: '24-04-2024',
+      cover:
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+      gallery: [
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+        'https://cdn.pixabay.com/photo/2020/04/19/08/17/watercolor-5062356_1280.jpg',
+      ],
       location: 'Expo SP',
       capacity: 100,
       description: 'Um evento massa sobre programação!',
@@ -74,6 +86,12 @@ describe('Add Events', () => {
       date: '2024-08-29',
       location: 'Expo SP',
       capacity: -1,
+      cover:
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+      gallery: [
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+        'https://cdn.pixabay.com/photo/2020/04/19/08/17/watercolor-5062356_1280.jpg',
+      ],
       description: 'Um evento massa sobre programação!',
       category: 'Tecnologia',
       status: 'Ativo',
