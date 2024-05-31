@@ -26,7 +26,7 @@ const eventController = new EventsController(
 router.get('/', eventController.getAll);
 router.get('/:id', eventController.getByID);
 router.post('/', eventController.add);
-router.patch('/', eventController.update);
-router.delete('/', eventController.remove);
+router.patch('/:id', eventController.update);
+router.delete('/:id', eventController.remove);
 
 export default router;
