@@ -7,6 +7,10 @@ export interface UpdateEventModel {
   capacity: number;
   category: string;
   status: string;
+  cover: string;
+  galerry: any;
+  location: string;
+  price: number;
 }
 
 export interface UpdateEvent {
