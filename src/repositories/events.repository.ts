@@ -12,7 +12,7 @@ class EventsRepository
 {
   async getAll(params: any): Promise<Event[]> {
     try {
-      return await EventModel.findAll({ where: { ...params } });
+      return await EventModel.find(params);
     } catch (error) {
       throw new DBError(error.message, 500);
     }
@@ -20,7 +20,8 @@ class EventsRepository
 
   async add(data: AddEventModel): Promise<Event> {
     try {
-      return (await EventModel.create({ ...data })).dataValues;
+      const event = new EventModel({ ...data });
+      return await event.save();
     } catch (error) {
       throw new DBError(error.message, 500);
     }
@@ -28,11 +29,10 @@ class EventsRepository
 
   async update(id: string, data: UpdateEventModel): Promise<Event> {
     try {
-      const result = await EventModel.update(data, {
-        where: { id },
-        returning: true,
+      const updatedEvent = await EventModel.findByIdAndUpdate(id, data, {
+        new: true,
       });
-      return result[1][0].dataValues;
+      return updatedEvent;
     } catch (error) {
       throw new DBError(error.message, 500);
     }
@@ -40,7 +40,8 @@ class EventsRepository
 
   async getEventByID(id: string): Promise<Event | false> {
     try {
-      return EventModel.findOne({ where: { id } });
+      const event = await EventModel.findById(id);
+      return event || false;
     } catch (error) {
       throw new DBError(error.message, 500);
     }
@@ -48,10 +49,13 @@ class EventsRepository
 
   async remove(id: string): Promise<Event> {
     try {
-      const existItem = await EventModel.findOne({ where: { id } });
-      if (existItem) existItem.destroy();
+      const event = await EventModel.findById(id);
+      if (event) {
+        await EventModel.deleteOne({ _id: id });
+        return event;
+      }
 
-      return existItem;
+      throw new DBError('Event not found', 404);
     } catch (error) {
       throw new DBError(error.message, 500);
     }
