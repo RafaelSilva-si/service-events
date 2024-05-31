@@ -1,62 +1,54 @@
-import { Model, DataTypes } from 'sequelize';
-import sequelize from '../../config/sequelize';
+import mongoose from 'mongoose';
+import Event from '../../domain/models/Event';
 
-class Event extends Model {
-  public id!: string;
-  public title!: string;
-  public date!: string | Date;
-  public description!: string;
-  public capacity!: number;
-  public category!: string;
-  public status!: string;
-  public cover!: string;
-  public galerry!: any;
-}
+const { Schema } = mongoose;
 
-Event.init(
+const eventSchema = new Schema(
   {
-    id: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
-    },
     title: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     date: {
-      type: DataTypes.DATE,
-      allowNull: false,
+      type: Date,
+      required: true,
     },
     description: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     capacity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: Number,
+      required: true,
     },
     category: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     status: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     cover: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: String,
     },
-    gallery: {
-      type: DataTypes.JSON,
+    galerry: {
+      type: Array,
+      default: [],
+    },
+    location: {
+      type: String,
+    },
+    price: {
+      type: Number,
+      required: true,
     },
   },
   {
-    sequelize,
-    modelName: 'Event',
-    tableName: 'events',
+    timestamps: true,
   },
 );
+
+const Event = mongoose.model<Event>('Event', eventSchema);
 
 export default Event;
