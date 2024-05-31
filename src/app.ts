@@ -2,8 +2,7 @@ import express, { Express } from 'express';
 import { Sequelize } from 'sequelize-typescript';
 import router from './routes';
 import envs from './config/global';
-import Event from './data/models/Events';
-import SequelizeInstance from './config/sequelize';
+import connectDB from './infra/mongo/mongo';
 
 class App {
   public express: Express;
@@ -22,11 +21,8 @@ class App {
   }
 
   private async database(): Promise<void> {
-    this.sequelize = SequelizeInstance;
-
     try {
-      await this.sequelize.authenticate();
-      await Event.sync({ force: false });
+      await connectDB();
     } catch (error) {
       console.error('Unable to connect to the database:', error);
     }
