@@ -27,11 +27,18 @@ describe('Update Event', () => {
     const data = {
       title: 'Evento de programação',
       date: '2024-06-24',
-      location: 'Expo SP',
       capacity: 100,
       description: 'Um evento massa sobre programação!',
       category: 'Tecnologia',
       status: 'Ativo',
+      cover:
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+      galerry: [
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+        'https://cdn.pixabay.com/photo/2020/04/19/08/17/watercolor-5062356_1280.jpg',
+      ],
+      price: 100,
+      location: 'Expo SP',
     };
 
     const result = await updateEvent.update('1', data);
@@ -43,11 +50,18 @@ describe('Update Event', () => {
     const data = {
       title: 'Evento de programação',
       date: '2024-06-24',
-      location: 'Expo SP',
       capacity: 100,
       description: 'Um evento massa sobre programação!',
       category: 'Tecnologia',
       status: 'Ativo',
+      cover:
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+      galerry: [
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+        'https://cdn.pixabay.com/photo/2020/04/19/08/17/watercolor-5062356_1280.jpg',
+      ],
+      price: 100,
+      location: 'Expo SP',
     };
 
     const promise = updateEvent.update('1', data);
@@ -71,6 +85,13 @@ describe('Update Event', () => {
       description: 'Um evento massa sobre programação!',
       category: 'Tecnologia',
       status: 'Ativo',
+      cover:
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+      galerry: [
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+        'https://cdn.pixabay.com/photo/2020/04/19/08/17/watercolor-5062356_1280.jpg',
+      ],
+      price: 100,
     };
 
     const promise = updateEvent.update('1', data);
@@ -92,11 +113,18 @@ describe('Update Event', () => {
     const data = {
       title: 'Evento de programação',
       date: '2024-06-24',
-      location: 'Expo SP',
       capacity: -1,
       description: 'Um evento massa sobre programação!',
       category: 'Tecnologia',
       status: 'Ativo',
+      cover:
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+      galerry: [
+        'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082_1280.jpg',
+        'https://cdn.pixabay.com/photo/2020/04/19/08/17/watercolor-5062356_1280.jpg',
+      ],
+      price: 100,
+      location: 'Expo SP',
     };
 
     const promise = updateEvent.update('1', data);
