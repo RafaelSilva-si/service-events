@@ -15,6 +15,8 @@ O módulo de evento gerencia informações de eventos, incluindo os campos Id, t
   cover
   galerry
   category
+  location
+  price
   status)
 
 - GET /EVENT (params para filtro: (title, date, category))
@@ -26,6 +28,8 @@ O módulo de evento gerencia informações de eventos, incluindo os campos Id, t
   capacity
   cover
   galerry
+  location
+  price
   category
   status)
 
